@@ -22,26 +22,42 @@ func main() {
 		strCodes = strings.Split(scanner.Text(), ",")
 	}
 	
-	intCodes := make([]int, len(strCodes))
-
-	for i := 0; i < len(strCodes); i++ {
-		intCodes[i], _ = strconv.Atoi(strCodes[i])
+	for n := 0; n <= 99; n++ {
+		for v := 0; v <= 99; v++ {
+			if theProgram(makeInts(strCodes), n, v) == 19690720 {
+				fmt.Printf("noun: %v verb: %v\n", n, v)
+				fmt.Println(100 * n + v)
+				break
+			}
+		}
 	}
+}
 
-	intCodes[1] = 12
-	intCodes[2] = 2
+func theProgram(intCodes []int, noun int, verb int) int {
+	
+	intCodes[1] = noun
+	intCodes[2] = verb
 
-	for i := 0; i < len(intCodes) ; i+=4 {
-		if intCodes[i] == 1 {
-			intCodes[intCodes[i+3]] = intCodes[intCodes[i+1]] + intCodes[intCodes[i+2]]
+	for address := 0; address < len(intCodes) ; address+=4 {
+		if intCodes[address] == 1 {
+			intCodes[intCodes[address+3]] = intCodes[intCodes[address+1]] + intCodes[intCodes[address+2]]
 		}
-		if intCodes[i] == 2 {
-			intCodes[intCodes[i+3]] = intCodes[intCodes[i+1]] * intCodes[intCodes[i+2]]
+		if intCodes[address] == 2 {
+			intCodes[intCodes[address+3]] = intCodes[intCodes[address+1]] * intCodes[intCodes[address+2]]
 		}
-		if intCodes[i] == 99 {
+		if intCodes[address] == 99 {
 			break
 		}
 	}
-	fmt.Println(intCodes)
+	return intCodes[0]
 }
 
+func makeInts(in []string) []int {
+	out := make([]int, len(in))
+
+	for i := 0; i < len(in); i++ {
+		out[i], _ = strconv.Atoi(in[i])
+	}
+
+	return out
+}
