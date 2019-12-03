@@ -28,6 +28,9 @@ func main() {
 		intCodes[i], _ = strconv.Atoi(strCodes[i])
 	}
 
+	intCodes[1] = 12
+	intCodes[2] = 2
+
 	for i := 0; i < len(intCodes) ; i+=4 {
 		if intCodes[i] == 1 {
 			intCodes[intCodes[i+3]] = intCodes[intCodes[i+1]] + intCodes[intCodes[i+2]]
